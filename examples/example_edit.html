@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Multi step form example</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script> 
+    <script src="../jquery.form_steps.js" type="text/javascript"></script>
+    <script type="text/javascript"> 
+      $(document).ready(function(){
+        $('#example_form').formSteps({editMode: true});
+      });
+    </script>
+  </head>
+  <body>
+
+    <form id="example_form">
+      <fieldset>
+        <legend>Label 1</legend>
+        <label for="t1">Text field 1</label>
+        <input type="text" name="t1" id="t1">
+      </fieldset>
+      <fieldset>
+        <legend>Label 2</legend>
+        <label for="t2">Text field 2</label>
+        <input type="text" name="t2" id="t2">
+      </fieldset>
+      <fieldset>
+        <legend>Label 3</legend>
+        <label for="t3">Text field 3</label>
+        <input type="text" name="t3" id="t3">
+      </fieldset>
+      <input name="commit" type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

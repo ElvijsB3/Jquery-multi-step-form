@@ -1,7 +1,7 @@
 (function($) {
   $.fn.formSteps = function(options) {
     options = $.extend({  
-        submitButton: "" 
+        editMode: false 
     }, options);
 
     var element = this;
@@ -10,13 +10,12 @@
     if ($('#errorExplanation').length > 0)
       return 
 
-
     var steps = $(element).find("fieldset");
     var count = steps.size();
     var advanced = false
 
     $(element).before("<ul id='form_steps'></ul>");
-    $(element).append("<div id='form_steps_commands'><a href='#' data-step='0' id='form_steps_previous'>Previous</a> <a href='#' data-step='1' id='form_steps_next'>Next</a></div>");
+    $(element).append("<div id='form_steps_commands'><a href='#' data-step='0' id='form_steps_previous' class='form_step_click'>Previous</a> <a href='#' data-step='1' id='form_steps_next' class='form_step_click'>Next</a></div>");
 
     steps.each(function(i) {
       var name = $(this).find("legend").html();
@@ -25,7 +24,15 @@
         count = count - 1
       }
       else {
-        $("#form_steps").append("<li id='form_step_" + i + "'>Step " + (i + 1) + "<span>" + name + "</span></li>");
+        var step_html = "<li id='form_step_" + i + "'>"
+        if (options.editMode == true) {
+          step_html = step_html + "<a href='#' class='form_step_click' data-step='" + i + "'>Step " + (i + 1) + "</a> "; 
+        }
+        else {
+          step_html = step_html + "Step " + (i + 1) + " ";           
+        }
+        step_html = step_html + "<span>" + name + "</span></li>";
+        $("#form_steps").append(step_html);
       }
     });
 
@@ -36,21 +43,16 @@
 
     step_display(0);
 
-    $('#form_steps_next').live('click',function(event){
+    $('.form_step_click').live('click',function(event){
       var step = $(this).data('step')
       step_display(step);
       return false;
     });
-    $('#form_steps_previous').live('click',function(event){
-      var step = $(this).data('step')
-      step_display(step);
-      return false;
-    });
-
     $('#form_steps_advanced').live('click',function(event){
       $(element).find('.advanced').show()
       return false;
     });
+
 
     function step_display(i) {
       console.log(i)
@@ -64,7 +66,7 @@
       }
       else {
         $('#form_steps_next').show().data('step', (i+1));
-        $(element).find('input:submit').hide();
+        if (options.editMode == false) { $(element).find('input:submit').hide(); }
         $('#form_steps_advanced').hide();
       }
 
