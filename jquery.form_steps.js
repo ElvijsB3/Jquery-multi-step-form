@@ -57,9 +57,11 @@
 
 
     function step_display(i) {
-      console.log(i)
-      $(element).find("fieldset").hide();
+      $(element).find('fieldset').hide();
       $(element).find('fieldset').eq(i).show();
+
+      $('.form_step_active').removeClass('form_step_active')
+      $('#form_step_' + i).addClass('form_step_active')
 
       if (i == count-1) {
         $('#form_steps_next').hide().data('step', count);
