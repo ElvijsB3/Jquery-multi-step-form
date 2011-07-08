@@ -1,12 +1,14 @@
 (function($) {
   $.fn.formSteps = function(options) {
     options = $.extend({  
-        editMode: false 
+        editMode: false,
+        legendHide: false
     }, options);
 
     var element = this;
  
-    $(element).find('legend').hide();
+    if (options.legendHide == true)
+      $(element).find('legend').hide(); 
     if ($('#errorExplanation').length > 0)
       return 
 
